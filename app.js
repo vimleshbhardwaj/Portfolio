@@ -60,4 +60,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Custom Neon Cursor Tracking
+    const cursor = document.querySelector('.cursor');
+    const cursorBlur = document.querySelector('.cursor-blur');
+
+    document.addEventListener('mousemove', (e) => {
+        if(cursor) {
+            cursor.style.transform = `translate(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%))`;
+        }
+        if(cursorBlur) {
+            setTimeout(() => {
+                cursorBlur.style.left = e.clientX + 'px';
+                cursorBlur.style.top = e.clientY + 'px';
+            }, 60); // 60ms delay creates a fluid trailing effect
+        }
+    });
 });
