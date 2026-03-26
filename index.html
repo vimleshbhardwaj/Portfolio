@@ -201,14 +201,18 @@
 
                 <form id="contact-form" class="contact-form">
                     <div class="input-group">
-                        <input type="text" id="name" required placeholder="Name">
+                        <input type="text" id="name" name="name" required placeholder="Name">
                     </div>
                     <div class="input-group">
-                        <input type="email" id="email" required placeholder="Email">
+                        <input type="email" id="email" name="email" required placeholder="Email">
                     </div>
                     <div class="input-group">
-                        <textarea id="message" rows="5" required placeholder="Your Message"></textarea>
+                        <textarea id="message" name="message" rows="5" required placeholder="Your Message"></textarea>
                     </div>
+                    <!-- Anti-spam honeypot for formsubmit -->
+                    <input type="text" name="_honey" style="display:none">
+                    <!-- Disable Captcha for smoother UX -->
+                    <input type="hidden" name="_captcha" value="false">
                     <button type="submit" class="btn btn-primary submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
                     <p id="form-status" style="display: none; margin-top: 1rem; color: var(--accent-color);"></p>
                 </form>

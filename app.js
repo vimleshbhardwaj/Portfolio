@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Form submission handling (Mock)
+    // Form submission handling via FormSubmit API
     const form = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
 
@@ -73,10 +73,20 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
             submitBtn.disabled = true;
 
-            // Mock API call delay
-            setTimeout(() => {
+            const formData = new FormData(form);
+
+            fetch('https://formsubmit.co/ajax/vimleshb38@gmail.com', {
+                method: 'POST',
+                headers: { 
+                    'Accept': 'application/json'
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
                 form.reset();
                 formStatus.style.display = 'block';
+                formStatus.style.color = 'var(--accent-color)';
                 formStatus.textContent = 'Message sent successfully! I will get back to you soon.';
                 submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent';
                 
@@ -84,8 +94,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     submitBtn.innerHTML = originalText;
                     submitBtn.disabled = false;
                     formStatus.style.display = 'none';
-                }, 3000);
-            }, 1500);
+                }, 5000);
+            })
+            .catch(error => {
+                formStatus.style.display = 'block';
+                formStatus.style.color = '#ef4444'; // Red error text
+                formStatus.textContent = 'Oops! There was a problem. Please try again later or email me directly.';
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                console.error('Error:', error);
+            });
         });
     }
 });
